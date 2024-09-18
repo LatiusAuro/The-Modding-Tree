@@ -1,13 +1,13 @@
 let modInfo = {
-	name: "The ??? Tree",
-	id: "mymod",
-	author: "nobody",
-	pointsName: "points",
+	name: "The Shadow Corruption Tree",
+	id: "xd002tree",
+	author: "N3N4-5LUT-1",
+	pointsName: "Shadow Energy Units",
 	modFiles: ["layers.js", "tree.js"],
 
 	discordName: "",
 	discordLink: "",
-	initialStartPoints: new Decimal (10), // Used for hard resets and new players
+	initialStartPoints: new Decimal (100), // Used for hard resets and new players
 	offlineLimit: 1,  // In hours
 }
 
@@ -34,7 +34,7 @@ function getStartPoints(){
 
 // Determines if it should show points/sec
 function canGenPoints(){
-	return true
+	return (hasUpgrade('c', 11))
 }
 
 // Calculate points/sec!
@@ -42,7 +42,10 @@ function getPointGen() {
 	if(!canGenPoints())
 		return new Decimal(0)
 
-	let gain = new Decimal(1)
+	let gain = new Decimal(2)
+	if (hasUpgrade('c', 12)) gain = gain.times(3)
+	if (hasUpgrade('c', 13)) gain = gain.times(upgradeEffect('c', 13))
+	if (hasUpgrade('c', 14)) gain = gain.times(upgradeEffect('c', 14))
 	return gain
 }
 
